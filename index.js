@@ -46,17 +46,27 @@ fetch("http://localhost:5678/api/works")
 
         data.forEach(categorie => {
                 
-            const button = document.createElement('button');
-            button.textContent = categorie.name;
+            const button = document.createElement('button');/* Pour chaque élément de la liste on créer un bouton */
+            button.textContent = categorie.name; /* On ajoute le nom de la catégorie au bouton */
             button.addEventListener('click', () => {
 
-                galleryContainer.innerHTML = "";
-                works.forEach(travail => {
-                    if (travail.categoryId === categorie.id) {
-                        createDOM(travail);
+                galleryContainer.innerHTML = "";/* On vide la galerie */
+                works.forEach(travail => { /* On parcours les travaux */
+                    if (travail.categoryId === categorie.id) { /* Si le travail correspond à la catégorie */
+                        createDOM(travail); /* On l'ajoute à la galerie */
                     }
                 });
             });
-            container.appendChild(button);
+            container.appendChild(button);/* On ajoute le bouton à la liste */
+        });
+    });
+
+    /* Ajout du filtre Tous */
+
+    const allWorksButton = document.getElementById('Tous');
+    allWorksButton.addEventListener('click', () => {
+        galleryContainer.innerHTML = "";/* On vide la galerie */
+        works.forEach(travail => { /* On parcours les travaux */
+            createDOM(travail); /* On les ajoute à la galerie */
         });
     });
