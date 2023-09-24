@@ -107,20 +107,6 @@ li:hover {
 	text-decoration: underline;
 }
 
-.Button1{
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 20px;
-	color: white;
-	background-color: #1D6154;
-	margin : 3em auto ;
-	padding: 10px;
-	width: 200px;
-	text-align: center;
-	border: 1px solid #1D6154;
-	border-radius: 60px ;
-}
-
 #contact {
 	width: 40%;
 	margin: auto;
