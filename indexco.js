@@ -4,26 +4,22 @@ async function login() { /*On crée une fonction asynchrone pour envoyer la requ
     const emailerror = document.getElementById("emailerror");
     const passworderror = document.getElementById("passworderror");
 
-    emailerror.textContent = "Email incorrect";
-    passworderror.textContent = "Mot de passe incorrect";
+    emailerror.textContent = "";
+    passworderror.textContent = "";
 
-    if (email === "" || password === "") {/*On vérifie que les champs email et password ne sont pas vides*/
-        alert("Veuillez remplir tous les champs");
-        return; /*On arrête la fonction si l'un des deux est vide*/
+    let errors = 0;
+
+    if (email === "") {/*On vérifie que les champs email et password ne sont pas vides*/
+        emailerror.textContent = "Veuillez entrer un email valide";
+        errors++;
     }
 
-    if (!email.includes("@")) { /* On vérifie que l'email est bien un email*/
-        alert("Veuillez entrer un email valide");
-        return;
+    if (password == "") { /* On vérifie que l'email est bien un email*/
+        passworderror.textContent = "Mot de passe incorrect";
+        errors++;
     }
 
-    if (!email || !password) { /*On vérifie que les champs email et password ne sont pas videsou undéfinisavec le "!"*/
-        if (!email) {
-            emailerror.textContent = "Veuillez entrer un email valide";
-        }
-        if (!password) {
-            passworderror.textContent = "Mot de passe incorrect";
-        }
+    if (errors > 0) {
         return;
     }
 
@@ -45,7 +41,7 @@ async function login() { /*On crée une fonction asynchrone pour envoyer la requ
         localStorage.setItem("token", data.token);
         /*window.location.href = "http://localhost:5500/";*/
     } else {
-        alert("Identifiant ou mot de passe incorrect. Veuillez réessayer.");
+        passworderror.textContent = ("Identifiant ou mot de passe incorrect. Veuillez réessayer.");
     }
 }
 
@@ -55,3 +51,4 @@ loginform.addEventListener("submit", (e) => { /*On écoute l'évènement submit 
     e.preventDefault(); /*On empêche le comportement par défaut du formulaire*/
 login();
 });
+

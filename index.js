@@ -1,6 +1,7 @@
 
 let works = [];
 const galleryContainer = document.querySelector('.gallery');
+const modalContainer = document.querySelector('.modalcontainer');
 
 fetch("http://localhost:5678/api/works")
 .then(reponse => reponse.json()) /* convertion de la réponse en json */
@@ -14,28 +15,29 @@ fetch("http://localhost:5678/api/works")
 
     /* On parcours les données des travaux et on les ajoutent à la galerie */
     data.forEach(travail => {
-        createDOM(travail);
+        createDOM(travail, galleryContainer);
+        createDOM(travail, modalContainer, true);
     });
-    });
-    function createDOM(travail) {
-        const figure = document.createElement('figure');
+});
+function createDOM(travail, container, modale = false) {
+    const figure = document.createElement('figure');
+        
 
-      /* On créer un élément d'image pour afficher l'image et le titre */
-      const image = document.createElement('img');
-      image.src = travail.imageUrl;
-      image.alt = travail.title;
-
-      /* On créer un élément de légende pour afficher le titre du travail */
-      const caption = document.createElement('figcaption');
-      caption.textContent = travail.title;
-
-      /* On ajoute l'image et la légende à la figure */
-      figure.appendChild(image);
-      figure.appendChild(caption);
-
-      /* On ajoute la figure à la galerie */
-      galleryContainer.appendChild(figure);
+    /* On créer un élément d'image pour afficher l'image et le titre */
+    const image = document.createElement('img');
+    image.src = travail.imageUrl;
+    image.alt = travail.title;
+    figure.appendChild(image);
+    /* On créer un élément de légende pour afficher le titre du travail */
+    if (modale === false)  {
+        const caption = document.createElement('figcaption');
+        caption.textContent = travail.title;
+        figure.appendChild(caption);
     }
+
+    /* On ajoute la figure à la galerie */
+    container.appendChild(figure);
+}
     /* Ajout des catégories à la liste */
 
     fetch("http://localhost:5678/api/categories")
@@ -70,3 +72,59 @@ fetch("http://localhost:5678/api/works")
             createDOM(travail); /* On les ajoute à la galerie */
         });
     });
+
+
+
+    /* Ajout de la modale de connexion */
+
+    /*const modal = document.getElementById('modal');
+    const modalButton = document.getElementById('modal-content');
+    const closeButton = document.getElementById('js-modale-close');
+
+    modalButton.addEventListener('click', () => {
+        modal.classList.add('show');
+    });
+
+    closeButton.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });*/
+
+    let modal = null /* On initialise la variable modale */
+
+    const openModal = function (e) {
+        e.preventDefault()
+        const target = document.querySelector(e.target.getAttribute('href'))
+        target.style.display = "block"
+        target.removeAttribute('aria-hidden')
+        target.setAttribute('aria-modal', 'true')
+        modal = target /* On stocke la modale dans une variable */
+        modal.addEventListener('click', closeModal)
+        modal.querySelector('.js-modal-close').addEventListener('click', closeModal) /* Fermeture de la modale au clic sur la croix */
+        modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation) /* Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci */
+    }
+
+    const closeModal = function (e) {
+        if (modal === null) return
+        e.preventDefault()
+        modal.style.display = "none"
+        modal.setAttribute('aria-hidden', 'true')
+        modal.removeAttribute('aria-modal')
+        modal.removeEventListener('click', closeModal)
+        modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
+        modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+        modal = null
+    }
+
+    const stopPropagation = function (e) { /* Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci */
+        e.stopPropagation()
+    }
+
+    document.querySelectorAll('.js-modal').forEach(a => {
+        a.addEventListener('click', openModal)
+    })
+
+    window.addEventListener('keydown', function (e) { /* Fermeture de la modale avec la touche Echap */
+        if (e.key === "Escape" || e.key === "Esc") {
+            closeModal(e) 
+        }
+    })
