@@ -121,10 +121,6 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
 
 .ButtonContainer {
 	text-align: center;
@@ -237,4 +233,28 @@ footer nav ul {
 	padding: 20px;
 	border: 1px solid #888;
 	width: 50%;
+}
+
+.titre {
+	display: flex;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154;
+}
+
+.js-modal {
+	color: black;
+	text-decoration: none;
+	margin: 5px 0px 0px 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.fa-pen-to-square {
+	color: black;
+	font-size: 20px;
+	padding-left: 20px;
+	margin: 5px 0px 0px 20px;
+
 }
