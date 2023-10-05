@@ -88,11 +88,14 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+}
+
+nav ul li a {
+	text-decoration: none;
 }
 
 li:hover {
@@ -232,7 +235,7 @@ footer nav ul {
 	margin: 15% auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 50%;
+	width: 45%;
 }
 
 .titre {
@@ -258,3 +261,80 @@ footer nav ul {
 	margin: 5px 0px 0px 20px;
 
 }
+
+.modal-content {
+	color: black;
+	border-radius: 25px;
+}
+
+.modal-content h2 {
+	text-align: center;
+	font-family: 'Work Sans', sans-serif;
+	font-size: 2.5rem;
+	color: black;
+	margin-bottom: 5rem;
+}
+
+.fa-xmark {
+	display: flex;
+	justify-content: flex-end;
+	color: black;
+	font-size: 20px;
+	padding-left: 20px;
+	margin: 10px 20px 0px 0px;
+}
+
+.modalcontainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 90%;
+	margin: auto;
+}
+
+.modalcontainer img {
+	position: relative;
+	width: 120px;
+	height: 150px;
+	object-fit: cover;
+	margin: 0rem 0.5rem 3rem 0rem;
+}
+
+.fa-trash-can {
+	position: absolute;
+	color: white;
+	background-color: black;
+	font-size: 18px;
+	padding: 5px;
+	margin: 10px 0px 0px -40px;
+}
+
+.modalehr {
+	border: none;
+  	color: #B3B3B3;
+  	width: 60%;
+  	height: 0px;
+  	border: 1px solid #B3B3B3;
+}
+
+.ajoutphoto {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 4rem 0rem 2rem 0rem;
+}
+
+.ajout {
+	font-family: 'Syne';
+	font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    text-align: center;
+    border-radius: 35px;
+	padding: 10px 60px;
+	border: 1px solid #1D6154;
+}
+

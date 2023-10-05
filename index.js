@@ -21,15 +21,44 @@ fetch("http://localhost:5678/api/works")
 });
 function createDOM(travail, container, modale = false) { /* Fonction pour créer les éléments de la galerie et de la modale */ 
     const figure = document.createElement('figure'); /* On créer un élément de figure pour afficher le travail */
-        
 
     /* On créer un élément d'image pour afficher l'image et le titre */
     const image = document.createElement('img'); /* On créer un élément d'image pour afficher l'image et le titre */
     image.src = travail.imageUrl; /* On ajoute l'url de l'image */
     image.alt = travail.title; /* On ajoute le titre de l'image */
     figure.appendChild(image); /* On ajoute l'image à la figure */
-    /* On créer un élément de légende pour afficher le titre du travail */
-    if (modale === false)  {
+    
+
+
+
+
+
+    if (modale === true) { /* Si on est dans la modale */
+        const trashIcon = document.createElement('i'); /* On créer un élément i pour afficher l'icône de suppression */
+        trashIcon.classList.add('fa-solid', 'fa-trash-can'); /* On ajoute les classes à l'icône de suppression */
+        trashIcon.addEventListener('click', () => { /* On ajoute un évènement au clic sur l'icône de suppression */
+            fetch(`http://localhost:5678/api/works/${travail.id}`, { /* On envoie une requête de suppression au serveur */
+                method: 'DELETE'
+            })
+            .then(reponse => reponse.json()) /* convertion de la réponse en json */
+            .then(data => {
+                if (data.status === 200) { /* Si la suppression est un succès */
+                    figure.remove(); /* On supprime le travail de la modale */
+                    const galleryImage = document.querySelector(`[data-id="${travail.id}"]`); /* On récupère l'image du travail dans la galerie */
+                    galleryImage.remove(); /* On supprime le travail de la galerie */
+                }
+            }
+            );
+        });
+        figure.appendChild(trashIcon); /* On ajoute l'icône de suppression à la figure */
+    }
+
+
+
+
+
+
+    if (modale === false)  { /* Si on est dans la galerie */
         const caption = document.createElement('figcaption'); /* On créer un élément de légende pour afficher le titre du travail */
         caption.textContent = travail.title; /* On ajoute le titre du travail à la légende */
         figure.appendChild(caption); /* On ajoute la légende à la figure */
@@ -73,31 +102,16 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         });
     });
 
-
-
-    /* Ajout de la modale de connexion */
-
-    /*const modal = document.getElementById('modal');
-    const modalButton = document.getElementById('modal-content');
-    const closeButton = document.getElementById('js-modale-close');
-
-    modalButton.addEventListener('click', () => {
-        modal.classList.add('show');
-    });
-
-    closeButton.addEventListener('click', () => {
-        modal.classList.remove('show');
-    });*/
+    /* Ajout de la modale */
 
     let modal = null /* On initialise la variable modale */
 
     const openModal = function (e) {
         e.preventDefault()
-        const target = document.querySelector(e.target.getAttribute('href'))
-        target.style.display = "block" /* On affiche la modale */
-        target.removeAttribute('aria-hidden') /* On supprime l'attribut aria-hidden */
-        target.setAttribute('aria-modal', 'true') /* On ajoute l'attribut aria-modal */
-        modal = target /* On stocke la modale dans une variable */
+        modal = document.querySelector(e.target.getAttribute('href'))
+        modal.style.display = "block" /* On affiche la modale */
+        modal.removeAttribute('aria-hidden') /* On supprime l'attribut aria-hidden */
+        modal.setAttribute('aria-modal', 'true') /* On ajoute l'attribut aria-modal */
         modal.addEventListener('click', closeModal) /* Fermeture de la modale au clic sur le fond */
         modal.querySelector('.js-modal-close').addEventListener('click', closeModal) /* Fermeture de la modale au clic sur la croix */
         modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation) /* Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci */
