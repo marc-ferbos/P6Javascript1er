@@ -144,7 +144,7 @@ li:hover {
 	font-size: 20px;
 }
 
-.ButtonContainer button:hover {
+.ButtonContainer button.active {
 	background-color: #1D6154;
 	color: white;
 }
@@ -230,7 +230,7 @@ footer nav ul {
 
 .modal-content {
 	overflow: auto;
-	height: 600px;
+	height: 700px;
 	background-color: #fff;
 	margin: 15% auto;
 	padding: 20px;
@@ -247,11 +247,10 @@ footer nav ul {
 }
 
 .js-modal {
-	color: black;
 	text-decoration: none;
-	margin: 5px 0px 0px 10px;
-	font-size: 20px;
-	font-weight: bold;
+    padding: 5px;
+    font-size: 20px;
+    color: black;
 }
 
 .fa-pen-to-square {
@@ -279,9 +278,9 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	color: black;
-	font-size: 20px;
+	font-size: 25px;
 	padding-left: 20px;
-	margin: 10px 20px 0px 0px;
+	margin: -20px 20px 0px 0px;
 }
 
 .modalcontainer {
@@ -289,17 +288,16 @@ footer nav ul {
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
-	width: 90%;
+	width: 80%;
 	margin: auto;
 }
 
 .modalcontainer img {
-	position: relative;
-	width: 120px;
-	height: 150px;
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
-	margin: 0rem 0.5rem 3rem 0rem;
 }
+
 
 .fa-trash-can {
 	position: absolute;
@@ -307,11 +305,13 @@ footer nav ul {
 	background-color: black;
 	font-size: 18px;
 	padding: 5px;
-	margin: 10px 0px 0px -40px;
+	top: 2px;
+	right: 2px;
 }
 
 .modalehr {
 	border: none;
+	margin-top: 4rem;
   	color: #B3B3B3;
   	width: 60%;
   	height: 0px;
@@ -326,15 +326,138 @@ footer nav ul {
 	margin: 4rem 0rem 2rem 0rem;
 }
 
-.ajout {
+.modalcontainer figure {
+	position: relative;
+	width: 18%;
+    min-width: 100px;
+	height: 130px;
+	margin-bottom: 2rem;
+}
+
+#ajout {
+	display: none;
+}
+
+.modale2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.8);
+}
+
+
+.fa-arrow-left{
+	display: flex;
+	justify-content: flex-start;
+	color: black;
+	font-size: 25px;
+	padding-left: 20px;
+	margin: 20px 20px 0px 0px;
+}
+
+.ajoutphoto a {
+	text-decoration: none;
+	padding: 15px;
+	font-size: 20px;
 	font-family: 'Syne';
-	font-size: 1.5rem;
     font-weight: 700;
     color: white;
     background-color: #1D6154;
+    width: 300px;
     text-align: center;
-    border-radius: 35px;
-	padding: 10px 60px;
-	border: 1px solid #1D6154;
+    border-radius: 60px;
 }
 
+.banner {
+	width: 60%;
+	height: 280px;
+	margin: auto;
+	background-color: #E8F1F6;
+}
+
+.fa-image {
+	display: flex;
+	justify-content: center;
+	color: #B9C5CC;
+	font-size: 8rem;
+	padding-top: 30px;
+}
+
+.banner form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+}
+
+.banner form input {
+	display: none;
+}
+
+.banner form label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: 50px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	color: #306685;
+	background-color: #CBD6DC;
+	text-align: center;
+	border-radius: 60px;
+	margin-top: 10px;
+}
+
+.banner form p {
+	margin: 20px 0px 0px 0px;
+}
+
+.titlecat {
+	display: flex;
+	flex-direction: column;
+	justify-content:flex-start;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	width: 60%;
+	color: #3D3D3D;
+	margin: 20px auto;
+}
+
+.titlecat input {
+	width: 100%;
+	height: 50px;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 500;
+	font-size: 20px;
+	color: #3D3D3D;
+	margin-top: 15px;
+	border: none;
+	box-shadow: 0px 0px 16px rgba(0,0,0,0.1);
+}
+
+.Valid {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 30px auto;
+	text-decoration: none;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    width: 300px;
+    text-align: center;
+	border: 1px solid;
+    border-radius: 60px;
+}

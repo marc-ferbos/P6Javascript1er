@@ -44,24 +44,56 @@
 			<a href="#modal1" class="js-modal">modifier</a>
 		</div>
 
-		<aside id="modal1" class="modal" aria-hidden="true">
-			<div class="modal-content">
+		<aside id="modal1" class="modal" aria-hidden="true" data-target="modal1">
+			<div class="modal-content js-modal-stop">
 				<div class="js-modale-close">
 					<i class="fa-solid fa-xmark"></i>
 				</div>
 				<h2>Galerie photo</h2>
 				<div class="modalcontainer">
-				
 				</div>
 
 				<hr class="modalehr">
 
 				<div class="ajoutphoto">
-				<button class="ajout">Ajouter une photo</button>
+				<a href="#ajout" class="js-modal" id="ajouterPhoto">Ajouter une photo</a>
 				</div>
-			
 			</div>
 		</aside>
+
+		<aside id="ajout" class="modale2" aria-hidden="false">
+			<div class="modal-content js-modal-stop">
+				<div class="js-modale-close">
+					<i class="fa-solid fa-arrow-left"></i>
+					<i class="fa-solid fa-xmark"></i>
+				</div>
+				<h2>Ajout photo</h2>
+
+				<div class="banner">
+					<i class="fa-regular fa-image"></i>
+					<form action="#" method="post" enctype="multipart/form-data">
+						<label for="file">+ Ajouter photo</label>
+						<input type="file" name="file" id="file">
+						<p>jpg, png : 4mo max</p>
+						<input type="submit" value="Valider">
+					</form>
+				</div>
+				<div class="titlecat">
+					<label for="title" class="label">Titre</label>
+					<input type="text" class="labelModal" id="title" name="title">
+				</div>
+				<div class="titlecat">
+					<label for="categorie" class="label">Catégorie</label>
+					<input type="text" class="labelModal" id="categorie" name="categorie">
+				</div>
+
+				<hr class="modalehr">
+
+				<button class="Valid">Valider</button>
+
+			</div>
+		</aside>
+
 
 		<div class="ButtonContainer">
 			<button id="Tous">Tous</button>
