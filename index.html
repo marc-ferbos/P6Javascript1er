@@ -64,7 +64,7 @@
 		<aside id="ajout" class="modale2" aria-hidden="false">
 			<div class="modal-content js-modal-stop">
 				<div class="js-modale-close">
-					<i class="fa-solid fa-arrow-left"></i>
+					<a href="#modal1" class="js-back-to-modal1"><i class="fa-solid fa-arrow-left"></i></a>
 					<i class="fa-solid fa-xmark"></i>
 				</div>
 				<h2>Ajout photo</h2>
@@ -73,11 +73,12 @@
 					<i class="fa-regular fa-image"></i>
 					<form action="#" method="post" enctype="multipart/form-data">
 						<label for="file">+ Ajouter photo</label>
-						<input type="file" name="file" id="file">
+						<input type="file" name="file" id="file" accept="image/jpg, image/png">
 						<p>jpg, png : 4mo max</p>
 						<input type="submit" value="Valider">
 					</form>
 				</div>
+				<img id="previewImage" src="#" alt="Image preview"/>
 				<div class="titlecat">
 					<label for="title" class="label">Titre</label>
 					<input type="text" class="labelModal" id="title" name="title">
@@ -96,7 +97,7 @@
 
 
 		<div class="ButtonContainer">
-			<button id="Tous">Tous</button>
+			<button id="Tous" class="active">Tous</button>
 		</div>
 		<div class="gallery">
 

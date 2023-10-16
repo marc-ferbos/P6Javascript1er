@@ -144,7 +144,7 @@ li:hover {
 	font-size: 20px;
 }
 
-.ButtonContainer button.active {
+.ButtonContainer button.active, .ButtonContainer button:hover {
 	background-color: #1D6154;
 	color: white;
 }
@@ -358,6 +358,10 @@ footer nav ul {
 	font-size: 25px;
 	padding-left: 20px;
 	margin: 20px 20px 0px 0px;
+}
+
+.js-back-to-modal1 {
+	text-decoration: none;
 }
 
 .ajoutphoto a {

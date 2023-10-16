@@ -2,14 +2,6 @@
 let works = [];
 const galleryContainer = document.querySelector('.gallery');
 const modalContainer = document.querySelector('.modalcontainer');
-const buttons = document.querySelectorAll('.ButtonContainer button');
-
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        buttons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-    });
-});
 
 fetch("http://localhost:5678/api/works")
 .then(reponse => reponse.json()) /* convertion de la réponse en json */
@@ -71,6 +63,10 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
     container.appendChild(figure);
 }
     /* Ajout des catégories à la liste */
+    const allWorksButton = document.getElementById('Tous');
+    const buttons = []
+    buttons.push(allWorksButton);
+
 
     fetch("http://localhost:5678/api/categories")
     .then(reponse => reponse.json()) /* convertion de la réponse en json */
@@ -90,14 +86,21 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
                         createDOM(travail, galleryContainer); /* On l'ajoute à la galerie */
                     }
                 });
-            });
+            });buttons.push(button);
             container.appendChild(button);/* On ajoute le bouton à la liste */
+        });
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                buttons.forEach(button => {
+                    button.classList.remove('active'); /* On supprime la classe active de tous les boutons */
+                });
+                button.classList.add('active'); /* On ajoute la classe active au bouton cliqué */
+            });
         });
     });
 
     /* Ajout du filtre Tous */
 
-    const allWorksButton = document.getElementById('Tous');
     allWorksButton.addEventListener('click', () => {
         galleryContainer.innerHTML = "";/* On vide la galerie */
         works.forEach(travail => { /* On parcours les travaux */
@@ -161,6 +164,42 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         deuxiemeModale.style.display = "block";
         deuxiemeModale.removeAttribute('aria-hidden');
         deuxiemeModale.setAttribute('aria-modal', 'true');
+    }
+    );
+
+    /* Revenir sur la première modale au click sur la flèche de la 2ème modale */
+
+    const flecheReturn = document.querySelector('.js-back-to-modal1');
+    flecheReturn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        premiereModale.style.display = "block";
+        premiereModale.removeAttribute('aria-hidden');
+        premiereModale.setAttribute('aria-modal', 'true');
+
+        deuxiemeModale.style.display = "none";
+        deuxiemeModale.setAttribute('aria-hidden', 'true');
+    }
+    );
+
+    /* Affichage du preview de l'image sur la 2ème modale */
+
+    const fileInput = document.getElementById('file');
+    const previewImage = document.getElementById('previewImage');
+
+    fileInput.addEventListener('change', (e) => {
+        const selectedFile = e.target.files[0]; /* On récupère le fichier sélectionné */
+        document.querySelector('.banner').style.display = "none"
+        if (selectedFile) { 
+            const reader = new FileReader(); /* On créer un objet FileReader */
+            reader.readAsDataURL(selectedFile); /* On lit le fichier sélectionné */
+            reader.addEventListener('load', () => {
+                previewImage.src = reader.result; /* On affiche le preview de l'image */
+            });
+        }
+        else {
+            previewImage.src = ""; /* On vide le preview */
+        }
     }
     );
 
