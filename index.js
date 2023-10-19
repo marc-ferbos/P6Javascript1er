@@ -64,8 +64,8 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
 }
     /* Ajout des catégories à la liste */
     const allWorksButton = document.getElementById('Tous');
-    const buttons = []
-    buttons.push(allWorksButton);
+    const buttons = [] /* On créer un tableau pour stocker les boutons */
+    buttons.push(allWorksButton); /* On ajoute le bouton Tous au tableau */
 
 
     fetch("http://localhost:5678/api/categories")
@@ -86,7 +86,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
                         createDOM(travail, galleryContainer); /* On l'ajoute à la galerie */
                     }
                 });
-            });buttons.push(button);
+            });buttons.push(button); /* On ajoute le bouton au tableau */
             container.appendChild(button);/* On ajoute le bouton à la liste */
         });
         buttons.forEach(button => {
@@ -184,12 +184,20 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
 
     /* Affichage du preview de l'image sur la 2ème modale */
 
-    const fileInput = document.getElementById('file');
+    const fileInput = document.querySelector('#file');
     const previewImage = document.getElementById('previewImage');
+    const Imageprev = document.getElementById('Imageprev');
+    const prevarea = document.querySelector('.prevarea');
 
     fileInput.addEventListener('change', (e) => {
         const selectedFile = e.target.files[0]; /* On récupère le fichier sélectionné */
         document.querySelector('.banner').style.display = "none"
+
+        
+        /*document.querySelector('Imageprev').style.display = "block"
+        document.querySelector('.prevarea').style.display = "block"*/
+
+
         if (selectedFile) { 
             const reader = new FileReader(); /* On créer un objet FileReader */
             reader.readAsDataURL(selectedFile); /* On lit le fichier sélectionné */
@@ -202,4 +210,66 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         }
     }
     );
+
+
+
+
+
+
+
+
+
+    // Créez une fonction pour effectuer la requête d'ajout de travail
+function ajouterTravail(nouveauTravail) {
+    fetch("http://localhost:5678/api/works", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(nouveauTravail) // On convertit l'objet en chaîne JSON
+    })
+    .then(reponse => reponse.json())
+    .then(data => {
+        if (data.status === 201) {
+            // Travail ajouté avec succès
+            closeModal(); // Fermez la deuxième modal
+            createDOM(data.work, galleryContainer); // Ajoutez le travail à la galerie
+        } else {
+            // Erreur lors de l'ajout du travail
+            alert(data.message);
+        }
+    });
+}
+
+// On ajoute un événement de soumission du formulaire dans la deuxième modal
+
+const ButtonValider = document.getElementById('ValidButton');
+const titreInput = document.querySelector('#title');
+const categorieInput = document.querySelector('#categorie');
+const previewImage2 = document.getElementById('previewImage');
+
+ButtonValider.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    /* On récupère les valeurs des champs */
+    const titreValue = titreInput.value.trim();
+    const categorieValue = categorieInput.value.trim();
+    const fileValue = fileInput.files[0];
+
+    /* On vérifie que les champs ne sont pas vides */
+    if  (!titreValue || !categorieValue || !fileValue) {
+            alert("Veuillez remplir tous les champs");
+            return;
+        } else {
+            /* On créer un objet travail avec les données du formulaire */
+            const nouveauTravail = {
+                title: titreValue,
+                category: categorieValue,
+            };
+
+            /* On effectue la requête d'ajout de travail */
+            ajouterTravail(nouveauTravail);
+        }
+    });
 

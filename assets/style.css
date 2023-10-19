@@ -465,3 +465,23 @@ footer nav ul {
 	border: 1px solid;
     border-radius: 60px;
 }
+
+.Imageprev {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 300px;
+	height: 280px;
+	margin: auto;
+	object-fit: cover;
+}
+
+.prevarea {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 60%;
+	height: 280px;
+	margin: auto;
+	background-color: #E8F1F6;
+}
