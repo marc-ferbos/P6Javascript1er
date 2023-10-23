@@ -194,7 +194,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         document.querySelector('.banner').style.display = "none"
 
         
-        /*document.querySelector('Imageprev').style.display = "block"
+        /*document.querySelector('.Imageprev').style.display = "block"
         document.querySelector('.prevarea').style.display = "block"*/
 
 
@@ -203,6 +203,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
             reader.readAsDataURL(selectedFile); /* On lit le fichier sélectionné */
             reader.addEventListener('load', () => {
                 previewImage.src = reader.result; /* On affiche le preview de l'image */
+                previewImage.style.display = "block"
             });
         }
         else {
@@ -212,33 +213,37 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
     );
 
 
-
-
-
-
-
-
-
-    // Créez une fonction pour effectuer la requête d'ajout de travail
+    // On créer une fonction pour effectuer la requête d'ajout de travail
+    
 function ajouterTravail(nouveauTravail) {
+
+    const titleValue = nouveauTravail.title;
+    const categoryValue = nouveauTravail.category;
+    const fileValue = nouveauTravail.file;
+
+    const workData = new FormData(); // On créer un objet data pour envoyer le fichier
+    workData.append('title', titleValue);
+    workData.append('category', categoryValue);
+    workData.append('image', fileValue);
+
     fetch("http://localhost:5678/api/works", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify(nouveauTravail) // On convertit l'objet en chaîne JSON
+        body: workData // On envoie le FormData dans le body de la requête
     })
     .then(reponse => reponse.json())
     .then(data => {
-        if (data.status === 201) {
             // Travail ajouté avec succès
             closeModal(); // Fermez la deuxième modal
             createDOM(data.work, galleryContainer); // Ajoutez le travail à la galerie
-        } else {
+    })
+    .catch(error => {
+        console.log(error);
             // Erreur lors de l'ajout du travail
-            alert(data.message);
-        }
+            alert ('Erreur lors de l\'ajout du travail');
+       
     });
 }
 
@@ -250,20 +255,22 @@ const categorieInput = document.querySelector('#categorie');
 const previewImage2 = document.getElementById('previewImage');
 
 ButtonValider.addEventListener('click', (e) => {
+    console.log('click');
     e.preventDefault();
 
     /* On récupère les valeurs des champs */
-    const titreValue = titreInput.value.trim();
+    const titreValue = titreInput.value.trim(); /* "trim()" permet de supprimer les espaces avant et après la chaîne de caractères */
     const categorieValue = categorieInput.value.trim();
     const fileValue = fileInput.files[0];
 
     /* On vérifie que les champs ne sont pas vides */
     if  (!titreValue || !categorieValue || !fileValue) {
-            alert("Veuillez remplir tous les champs");
+            alert ("Veuillez remplir tous les champs");
             return;
         } else {
             /* On créer un objet travail avec les données du formulaire */
             const nouveauTravail = {
+                file: fileValue,
                 title: titreValue,
                 category: categorieValue,
             };
@@ -273,3 +280,22 @@ ButtonValider.addEventListener('click', (e) => {
         }
     });
 
+    /* Ajout des catégories à la liste déroulante */
+
+fetch('http://localhost:5678/api/categories')
+.then(reponse => reponse.json())
+.then(categories => {
+
+    categories.forEach(categorie => { /* Pour chaque catégorie on créer un élément option */
+        const option = document.createElement('option'); /* On créer un élément button pour afficher la catégorie */
+        
+        option.value = categorie.id; /* On ajoute l'id de la catégorie à l'option */
+        option.textContent = categorie.name; /* On ajoute le nom de la catégorie à l'option */
+        categorieInput.appendChild(option); /* On ajoute l'option à la liste */
+    })
+})
+
+.catch(error => {
+    console.log(error);
+    alert('Erreur lors du chargement des catégories');
+});
