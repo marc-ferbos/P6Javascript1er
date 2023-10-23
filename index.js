@@ -214,7 +214,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
 
 
     // On créer une fonction pour effectuer la requête d'ajout de travail
-    
+
 function ajouterTravail(nouveauTravail) {
 
     const titleValue = nouveauTravail.title;
@@ -240,8 +240,6 @@ function ajouterTravail(nouveauTravail) {
             createDOM(data.work, galleryContainer); // Ajoutez le travail à la galerie
     })
     .catch(error => {
-        console.log(error);
-            // Erreur lors de l'ajout du travail
             alert ('Erreur lors de l\'ajout du travail');
        
     });
