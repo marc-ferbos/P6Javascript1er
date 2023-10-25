@@ -39,7 +39,7 @@ async function login() { /*On crée une fonction asynchrone pour envoyer la requ
     const data = await result.json();
     console.log(data);
         localStorage.setItem("token", data.token);
-        /*window.location.href = "http://localhost:5500/";*/
+        window.location.href = "index.html";
     } else {
         passworderror.textContent = ("Identifiant ou mot de passe incorrect. Veuillez réessayer.");
     }

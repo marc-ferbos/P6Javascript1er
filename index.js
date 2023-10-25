@@ -33,21 +33,17 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         trashIcon.classList.add('fa-solid', 'fa-trash-can'); /* On ajoute les classes à l'icône de suppression */
         trashIcon.addEventListener('click', () => { /* On ajoute un évènement au clic sur l'icône de suppression */
 
-        console.log(localStorage.getItem('token'));
+        /*console.log(localStorage.getItem('token'));*/
 
             fetch(`http://localhost:5678/api/works/${travail.id}`, { /* On envoie une requête de suppression au serveur */
                 method: 'DELETE',
                 headers: { 'Authorization' : `Bearer ${localStorage.getItem('token')}`} /* On ajoute le token dans le header de la requête */
             })
-            .then(reponse => reponse.json()) /* convertion de la réponse en json */
             .then(data => {
-                if (data.status === 200) { /* Si la suppression est un succès */
                     figure.remove(); /* On supprime le travail de la modale */
                     const galleryImage = document.querySelector(`[data-id="${travail.id}"]`); /* On récupère le travail dans la galerie */
                     galleryImage.remove(); /* On supprime le travail de la galerie */
-                }
-            }
-            );
+            })
         });
         figure.appendChild(trashIcon); /* On ajoute l'icône de suppression à la figure */
     }
@@ -135,7 +131,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         modal = null /* On réinitialise la variable modale */
     }
 
-    const stopPropagation = function (e) { /* Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci */
+    const stopPropagation = function (e) { // Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci
         e.stopPropagation()
     }
 
@@ -143,13 +139,13 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         a.addEventListener('click', openModal)
     })
 
-    window.addEventListener('keydown', function (e) { /* Fermeture de la modale avec la touche Echap */
+    window.addEventListener('keydown', function (e) { // Fermeture de la modale avec la touche Echap
         if (e.key === "Escape" || e.key === "Esc") {
             closeModal(e) 
         }
     })
 
-    /* Apparition de la deuxième modale et disparition de la première */
+    // Apparition de la deuxième modale et disparition de la première
 
     const ajouterPhoto = document.getElementById('ajouterPhoto');
     const premiereModale = document.getElementById('modal1');
@@ -167,7 +163,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
     }
     );
 
-    /* Revenir sur la première modale au click sur la flèche de la 2ème modale */
+    // Revenir sur la première modale au click sur la flèche de la 2ème modale
 
     const flecheReturn = document.querySelector('.js-back-to-modal1');
     flecheReturn.addEventListener('click', (e) => {
@@ -182,7 +178,7 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
     }
     );
 
-    /* Affichage du preview de l'image sur la 2ème modale */
+    //Affichage du preview de l'image sur la 2ème modale
 
     const fileInput = document.querySelector('#file');
     const previewImage = document.getElementById('previewImage');
@@ -190,24 +186,19 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
     const prevarea = document.querySelector('.prevarea');
 
     fileInput.addEventListener('change', (e) => {
-        const selectedFile = e.target.files[0]; /* On récupère le fichier sélectionné */
+        const selectedFile = e.target.files[0]; // On récupère le fichier sélectionné
         document.querySelector('.banner').style.display = "none"
 
-        
-        /*document.querySelector('.Imageprev').style.display = "block"
-        document.querySelector('.prevarea').style.display = "block"*/
-
-
         if (selectedFile) { 
-            const reader = new FileReader(); /* On créer un objet FileReader */
-            reader.readAsDataURL(selectedFile); /* On lit le fichier sélectionné */
+            const reader = new FileReader(); // On créer un objet FileReader
+            reader.readAsDataURL(selectedFile); // On lit le fichier sélectionné
             reader.addEventListener('load', () => {
-                previewImage.src = reader.result; /* On affiche le preview de l'image */
+                previewImage.src = reader.result; //On affiche le preview de l'image
                 previewImage.style.display = "block"
             });
         }
         else {
-            previewImage.src = ""; /* On vide le preview */
+            previewImage.src = ""; //On vide le preview
         }
     }
     );
@@ -237,11 +228,10 @@ function ajouterTravail(nouveauTravail) {
     .then(data => {
             // Travail ajouté avec succès
             closeModal(); // Fermez la deuxième modal
-            createDOM(data.work, galleryContainer); // Ajoutez le travail à la galerie
+            createDOM(data.work, galleryContainer); // On ajoute le travail à la galerie
     })
     .catch(error => {
             alert ('Erreur lors de l\'ajout du travail');
-       
     });
 }
 
@@ -253,7 +243,6 @@ const categorieInput = document.querySelector('#categorie');
 const previewImage2 = document.getElementById('previewImage');
 
 ButtonValider.addEventListener('click', (e) => {
-    console.log('click');
     e.preventDefault();
 
     /* On récupère les valeurs des champs */
@@ -294,6 +283,5 @@ fetch('http://localhost:5678/api/categories')
 })
 
 .catch(error => {
-    console.log(error);
     alert('Erreur lors du chargement des catégories');
 });

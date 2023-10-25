@@ -232,10 +232,15 @@ footer nav ul {
 	overflow: auto;
 	height: 700px;
 	background-color: #fff;
-	margin: 15% auto;
 	padding: 20px;
+	color: black;
+	border-radius: 25px;
 	border: 1px solid #888;
 	width: 45%;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%,-50%);
 }
 
 .titre {
@@ -259,11 +264,6 @@ footer nav ul {
 	padding-left: 20px;
 	margin: 5px 0px 0px 20px;
 
-}
-
-.modal-content {
-	color: black;
-	border-radius: 25px;
 }
 
 .modal-content h2 {
