@@ -119,9 +119,9 @@ function createDOM(travail, container, modale = false) { /* Fonction pour créer
         modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation) /* Fonction pour empêcher la fermeture de la modale au clic sur le contenu de celle-ci */
     }
 
-    const closeModal = function (e) {
+    const closeModal = function (e = null) {
         if (modal === null) return /* Si la modale est null on arrête la fonction */
-        e.preventDefault() /* On empêche le comportement par défaut */
+        if(e){e.preventDefault()} /* On empêche le comportement par défaut */
         modal.style.display = "none" /* On cache la modale */
         modal.setAttribute('aria-hidden', 'true') /* On ajoute l'attribut aria-hidden */
         modal.removeAttribute('aria-modal') /* On supprime l'attribut aria-modal */
@@ -228,12 +228,59 @@ function ajouterTravail(nouveauTravail) {
     .then(data => {
             // Travail ajouté avec succès
             closeModal(); // Fermez la deuxième modal
-            createDOM(data.work, galleryContainer); // On ajoute le travail à la galerie
+            createDOM(data, galleryContainer); // On ajoute le travail à la galerie
+            createDOM(data, modalContainer, true); // On ajoute le travail à la modale
     })
     .catch(error => {
             alert ('Erreur lors de l\'ajout du travail');
     });
 }
+
+
+
+
+
+
+
+const token = localStorage.getItem('token');
+const loginLink = document.querySelector('a[href="connexion.html"]'); // Sélectionnez le lien "login"
+
+
+
+if (token) {
+    
+    loginLink.textContent = 'logout';
+
+    loginLink.addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = 'connexion.html';
+
+        // On re actualise la page actuelle pour le changement de texte du lien
+        location.reload();
+    });
+} else {
+    loginLink.textContent = 'login';
+}
+
+
+if (token) {
+
+    const BarreBl = document.querySelector('.Barrebl');
+    const JsModal = document.querySelector('.modifier');
+    const IconModif2 = document.querySelector('.fa-regular.fa-pen-to-square');
+    const IconModif1 = document.querySelector('.fa-solid.fa-pen-to-square');
+
+    BarreBl.style.display = 'block';
+    JsModal.style.display = 'block';
+    IconModif2.style.display = 'block';
+    IconModif1.style.display = 'block';
+}
+
+
+
+
+
+
 
 // On ajoute un événement de soumission du formulaire dans la deuxième modal
 

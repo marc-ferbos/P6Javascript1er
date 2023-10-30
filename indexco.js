@@ -45,6 +45,7 @@ async function login() { /*On crée une fonction asynchrone pour envoyer la requ
     }
 }
 
+
 const loginform = document.getElementById("Loginform");
 
 loginform.addEventListener("submit", (e) => { /*On écoute l'évènement submit du formulaire*/
