@@ -19,7 +19,7 @@ async function login() { /*On crée une fonction asynchrone pour envoyer la requ
         errors++;
     }
 
-    if (errors > 0) {
+    if (errors > 0) { /*Si un des champs est vide, on arrête la fonction*/
         return;
     }
 

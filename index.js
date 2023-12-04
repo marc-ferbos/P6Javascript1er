@@ -1,5 +1,5 @@
 
-let works = [];
+let works = []; /* On créer un tableau pour stocker les travaux */
 const galleryContainer = document.querySelector('.gallery');
 const modalContainer = document.querySelector('.modalcontainer');
 
@@ -11,7 +11,7 @@ fetch("http://localhost:5678/api/works")
 
 .then(data => {
 
-    works = data;
+    works = data; /* On stocke les données des travaux dans la variable works */
 
     /* On parcours les données des travaux et on les ajoutent à la galerie */
     data.forEach(travail => { /* Pour chaque travail on créer un élément de figure */
@@ -22,7 +22,7 @@ fetch("http://localhost:5678/api/works")
 function createDOM(travail, container, modale = false) { /* Fonction pour créer les éléments de la galerie et de la modale */ 
     const figure = document.createElement('figure'); /* On créer un élément de figure pour afficher le travail */
 
-    /* On créer un élément d'image pour afficher l'image et le titre */
+
     const image = document.createElement('img'); /* On créer un élément d'image pour afficher l'image et le titre */
     image.src = travail.imageUrl; /* On ajoute l'url de l'image */
     image.alt = travail.title; /* On ajoute le titre de l'image */
@@ -213,7 +213,7 @@ function ajouterTravail(nouveauTravail) {
     const fileValue = nouveauTravail.file;
 
     const workData = new FormData(); // On créer un objet data pour envoyer le fichier
-    workData.append('title', titleValue);
+    workData.append('title', titleValue); // On ajoute les données du formulaire à l'objet data
     workData.append('category', categoryValue);
     workData.append('image', fileValue);
 
